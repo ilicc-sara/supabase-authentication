@@ -6,6 +6,7 @@ import Dashboard from "./components/Dashboard.tsx";
 import SignIn from "./components/SignIn.tsx";
 import SignUp from "./components/SignUp.tsx";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { AuthContextProvider } from "./Context/AuthContext.js";
 
 const router = createBrowserRouter([
   {
@@ -32,7 +33,9 @@ createRoot(document.getElementById("root")!).render(
       <h1 className="text-center pt-4 text-3xl">
         React Supabase Auth & Context
       </h1>
-      <RouterProvider router={router} />
+      <AuthContextProvider>
+        <RouterProvider router={router} />
+      </AuthContextProvider>
     </>
   </StrictMode>
 );
