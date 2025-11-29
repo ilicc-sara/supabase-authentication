@@ -29,14 +29,14 @@ interface ProviderProps {
 }
 
 export const AuthContextProvider = ({ children }: ProviderProps) => {
-  const [session, setSession] = useState<SessionType>(null);
+  const [session, setSession] = useState<SessionType>(undefined);
 
   return (
     <AuthContext.Provider value={{ session }}>{children}</AuthContext.Provider>
   );
 };
 
-export const useAuth = () => {
+export const UserAuth = () => {
   const ctx = useContext(AuthContext);
   if (!ctx) {
     throw new Error("useAuth must be used inside AuthContextProvider");
