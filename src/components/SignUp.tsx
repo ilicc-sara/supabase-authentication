@@ -8,7 +8,7 @@ function SignUp() {
   const [error, setError] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const { session } = UserAuth();
+  const { session, signUpNewUser, signOut } = UserAuth();
   console.log(session);
 
   return (
