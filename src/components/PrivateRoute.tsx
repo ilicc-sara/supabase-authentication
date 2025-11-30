@@ -8,6 +8,11 @@ type ProviderProps = {
 
 function PrivateRoute({ children }: ProviderProps) {
   const { session } = UserAuth();
+
+  if (session === undefined) {
+    return <p>Loading...</p>;
+  }
+
   return <>{session ? <>{children}</> : <Navigate to="/signup" />}</>;
 }
 

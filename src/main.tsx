@@ -5,6 +5,7 @@ import App from "./App.tsx";
 import Dashboard from "./components/Dashboard.tsx";
 import SignIn from "./components/SignIn.tsx";
 import SignUp from "./components/SignUp.tsx";
+import PrivateRoute from "./components/PrivateRoute.tsx";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { AuthContextProvider } from "./Context/AuthContext.js";
 
@@ -23,7 +24,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <Dashboard />,
+    element: (
+      <PrivateRoute>
+        <Dashboard />,
+      </PrivateRoute>
+    ),
   },
 ]);
 
