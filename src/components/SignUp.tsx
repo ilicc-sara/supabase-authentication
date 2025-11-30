@@ -6,12 +6,12 @@ import { useNavigate } from "react-router";
 function SignUp() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [error, setError] = useState<boolean>(false);
+  const [error, setError] = useState<any>();
   const [loading, setLoading] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
-  const { session, signUpNewUser, signOut } = UserAuth();
+  const { session, signUpNewUser } = UserAuth();
   console.log(session);
 
   const handleSignUp = async (e: any) => {
@@ -23,12 +23,16 @@ function SignUp() {
       if (result.success) {
         navigate("/dashboard");
       }
-    } catch (error) {}
+    } catch (error) {
+      setError("an error occured");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div>
-      <form className="max-w-md mx-auto pt-24">
+      <form onSubmit={handleSignUp} className="max-w-md mx-auto pt-24">
         <h2 className="font-bold pb-2">Sign up today</h2>
         <p>
           Already have an account? <Link to="/signin">Sign In!</Link>
@@ -52,6 +56,7 @@ function SignUp() {
           <button type="submit" className="mt-4" disabled={loading}>
             Sign Up
           </button>
+          {error && <p className="text-red-600 text-center pt-4">{error}</p>}
         </div>
       </form>
     </div>

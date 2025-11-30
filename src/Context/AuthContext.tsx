@@ -40,6 +40,13 @@ interface ProviderProps {
 export const AuthContextProvider = ({ children }: ProviderProps) => {
   const [session, setSession] = useState<SessionType>(undefined);
 
+  // useEffect(() => {
+  //   const signOutFunction = async () => {
+  //     await supabase.auth.signOut();
+  //   };
+  //   signOutFunction();
+  // }, []);
+
   // Sign Up
   const signUpNewUser = async (email: string, password: string) => {
     const { data, error } = await supabase.auth.signUp({
