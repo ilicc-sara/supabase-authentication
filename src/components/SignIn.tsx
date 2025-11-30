@@ -33,9 +33,9 @@ function SignIn() {
   return (
     <div>
       <form onSubmit={handleSignIn} className="max-w-md mx-auto pt-24">
-        <h2 className="font-bold pb-2">Sign up today</h2>
+        <h2 className="font-bold pb-2">Sign In</h2>
         <p>
-          Already have an account? <Link to="/signin">Sign In!</Link>
+          Don't have an account? <Link to="/signup">Sign Up!</Link>
         </p>
 
         <div className="flex flex-col !py-4">
@@ -54,7 +54,7 @@ function SignIn() {
             placeholder="Password"
           />
           <button type="submit" className="mt-4" disabled={loading}>
-            Sign Up
+            Sign In
           </button>
           {error && <p className="text-red-600 text-center pt-4">{error}</p>}
         </div>
