@@ -16,6 +16,7 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 import { supabase } from "../supabase-client";
+import { data } from "react-router";
 
 type SessionType = any | null | undefined;
 
@@ -26,6 +27,7 @@ interface AuthContextType {
 interface AuthContextType {
   session: SessionType;
   signUpNewUser: (email: string, password: string) => Promise<any>;
+  signInUser: (email: string, password: string) => Promise<any>;
   signOut: () => Promise<void>;
 }
 
@@ -52,6 +54,25 @@ export const AuthContextProvider = ({ children }: ProviderProps) => {
     return { success: true, data };
   };
 
+  // Sign In
+  const signInUser = async (email: string, password: string) => {
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: email,
+        password: password,
+      });
+
+      if (error) {
+        console.error("an error occured:", error);
+        return { success: false, error: error.message };
+      }
+      console.log("sign-in success:", data);
+      return { success: true, data };
+    } catch (error) {
+      console.error("an error occured:", error);
+    }
+  };
+
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
@@ -71,7 +92,9 @@ export const AuthContextProvider = ({ children }: ProviderProps) => {
   };
 
   return (
-    <AuthContext.Provider value={{ session, signUpNewUser, signOut }}>
+    <AuthContext.Provider
+      value={{ session, signUpNewUser, signInUser, signOut }}
+    >
       {children}
     </AuthContext.Provider>
   );
