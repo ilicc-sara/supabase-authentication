@@ -1,22 +1,5 @@
-// import { useEffect, useContext, createContext, useState } from "react";
-
-// const AuthContext = createContext();
-
-// export const AuthContextProvider = ({ children }) => {
-//   const [session, setSession] = useState(undefined);
-
-//   return (
-//     <AuthContext.Provider value={{ session }}>{children}</AuthContext.Provider>
-//   );
-// };
-
-// export const userAuth = () => {
-//   return useContext(AuthContext);
-// };
-
 import { createContext, useContext, useEffect, useState } from "react";
 import { supabase } from "../supabase-client";
-import { data } from "react-router";
 
 type SessionType = any | null | undefined;
 
@@ -39,13 +22,6 @@ interface ProviderProps {
 
 export const AuthContextProvider = ({ children }: ProviderProps) => {
   const [session, setSession] = useState<SessionType>(undefined);
-
-  // useEffect(() => {
-  //   const signOutFunction = async () => {
-  //     await supabase.auth.signOut();
-  //   };
-  //   signOutFunction();
-  // }, []);
 
   // Sign Up
   const signUpNewUser = async (email: string, password: string) => {
@@ -79,6 +55,15 @@ export const AuthContextProvider = ({ children }: ProviderProps) => {
       console.error("an error occured:", error);
     }
   };
+
+  // Sign In Anonymously
+  // const signInUserAnonymously = async () => {
+  //   try {
+  //     const { data, error } = await supabase.auth.signInAnonymously();
+  //   } catch (error) {
+  //     console.error("an error occured");
+  //   }
+  // };
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
