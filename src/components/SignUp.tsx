@@ -21,7 +21,7 @@ function SignUp() {
       const result = await signUpNewUser(email, password);
 
       if (result.success) {
-        navigate("/signup");
+        navigate("/signin");
       }
     } catch (error) {
       setError("an error occured");

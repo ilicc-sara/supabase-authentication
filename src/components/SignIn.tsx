@@ -24,7 +24,7 @@ function SignIn() {
         navigate("/dashboard");
       }
     } catch (error) {
-      setError("an error occured");
+      setError(`an error occured ${error}`);
     } finally {
       setLoading(false);
     }
